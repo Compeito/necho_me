@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
+    <!-- Bootstrap core CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.4/css/mdb.min.css" rel="stylesheet">
+    <!-- toastr -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+    <!--lity-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lity/2.3.1/lity.min.css" />
+    <!--link rel="shortcut icon" href="/static/img/favicon.ico"-->
+    <meta property="og:site_name" content="nEcho(ねこー)">
+    <meta content="@ugo_competio" name="twitter:site">
+    <meta content="" name='keywords'>
+    {% ifequal request.path '/' %}
+    <meta property="og:type" content="website"/>
+    <title>nEcho(ねこー) - 何をツイートしてもにゃーんになるWebアプリ</title>
+    <meta name="description"        content="何をツイートしてもにゃーんになるWebアプリ。ネコと和解せよ">
+    <meta property="og:title"       content="nEcho(ねこー)">
+    <meta property="og:description" content="何をツイートしてもにゃーんになるWebアプリ。ネコと和解せよ">
+    <meta property="og:url"         content="{{ request.build_absolute_uri }}">
+    <meta name="twitter:card"       content="summary">
+    <meta property="og:image"       content="https://necho.altwug.net/static/og.png">
+    {% else %}
+    <title>{% block title %}{% endblock %} - ねこー</title>
+    <meta property="og:type" content="article"/>
+    <meta name="description"        content="{% block description %}{% endblock %}">
+    <meta property="og:title"       content="{% block og_title %}{% endblock %} - ねこー">
+    <meta property="og:description" content="{% block og_description %}{% endblock %}">
+    <meta property="og:url"         content="{{ request.build_absolute_uri }}">
+    <meta name="twitter:card"       content="summary">
+    <meta property="og:image"       content="https://necho.altwug.net/static/og.png">
+    {% endifequal %}
+    {% if page_obj %}
+    {% if page_obj.has_previous %}<link rel="prev" href="?page={{ page_obj.previous_page_number }}" />{% endif %}
+    {% if page_obj.has_next %}<link rel="next" href="{{ request.build_absolute_uri }}?page={{ page_obj.next_page_number }}" />{% endif %}
+    {% endif %}
+    <style media="screen">
+        body {
+            margin-top: 100px;
+        }
+        h1 {
+            font-size: 36px;
+        }
+        .text-small {
+            font-size: small;
+        }
+        .text-md {
+            font-size: 20px;
+        }
+        .text-lg {
+            font-size: 36px;
+        }
+    </style>
+    {% block head %}{% endblock %}
+</head>
+<body>
+    {% include "nav.html" %}
+    <div class="container mb-5">{% block content %}{% endblock %}</div>
+    <!-- JQuery -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.13.0/umd/popper.min.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.4/js/mdb.min.js"></script>
+    <!--toastr-->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <!--lity-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lity/2.3.1/lity.min.js"></script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+    {% for message in messages %}
+    <script>
+        $(function () {
+            toastr.options = {
+                "positionClass": "toast-bottom-right",
+            };
+            toastr['{{ message.tags }}']('{{ message }}')
+        })
+    </script>
+    {% endfor %}
+    {% block script %}{% endblock %}
+</body>
+</html>

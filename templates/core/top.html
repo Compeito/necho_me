@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block head %}{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="text-center">
+            <h1 class="mb-2">nEcho(ねこー)</h1>
+            <p class="lead">何を書いても「にゃーん」に変換されてツイートされます</p>
+            <a class="btn btn-lg btn-primary mb-4" href="{% url 'social:begin' 'twitter' %}">つぶやいてみる</a>
+            <p class="text-small text-muted">
+                ごくまれに「にゃーん」以外にもなるかも
+            </p>
+            <p class="text-small text-muted">
+                利用にあたってはツイッターアカウントでの<br>
+                アプリ連携が必用です
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block script %}{% endblock %}

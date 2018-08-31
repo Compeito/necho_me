@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}にゅうりょくフォーム{% endblock %}
+{% block description %}{% endblock %}
+{% block og_title %}にゅうりょくフォーム{% endblock %}
+{% block og_description %}{% endblock %}
+{% block og_image %}{% endblock %}
+{% block head %}{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <h1>にゅうりょくフォーム</h1>
+        <form method="post">
+            {% csrf_token %}
+            {% load bootstrap4 %}
+            {% bootstrap_form form %}
+            <div class="text-right">
+                <button class="btn btn-primary">ツイート</button>
+            </div>
+        </form>
+    </div>
+    <div class="col-md-4">
+    </div>
+</div>
+{% endblock %}
+
+{% block script %}{% endblock %}

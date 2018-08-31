@@ -1,0 +1,35 @@
+<script>
+    $(function () {
+        $('.translate-button').click(function() {
+            let slug = $(this).attr('data-nyaaan-id');
+            $(this).text = '翻訳済み';
+            $(this).attr('disabled', '');
+            $(this).off('click');
+            $(`.nyaaan_${slug}`).fadeOut('fast', function() {
+                $(`.text_${slug}`).fadeIn('fast');
+            });
+        });
+
+        $('.delete-button').click(function() {
+            let slug = $(this).attr('data-nyaaan-id');
+            toastr.options = {"positionClass": "toast-bottom-right"};
+            $.ajax({
+                url: `/del/${slug}/`,
+                type: 'POST',
+                dataType: 'json',
+                data: {'csrfmiddlewaretoken': "{{ csrf_token }}"}
+            })
+            .done(function(response) {
+                if (response.code===100) {
+                    $(`#${slug}`).hide('fast');
+                    toastr['success']('削除しました')
+                } else {
+                    toastr['error']('削除に失敗しました')
+                }
+            })
+            .fail(function() {
+                toastr['error']('予期せぬエラーが発生しました')
+            })
+        })
+    });
+</script>

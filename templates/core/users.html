@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}{{ account.get_full_name }}{% endblock %}
+{% block description %}{% endblock %}
+{% block og_title %}{{ account.get_full_name }}{% endblock %}
+{% block og_description %}{% endblock %}
+{% block og_image %}{% endblock %}
+{% block head %}{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="jumbotron">
+            <h1 class="lead">
+                <img src="{{ account.json.profile_image_url_https }}">
+                {{ account.get_full_name }}<small class="mx-1">@{{ account.username }}</small>
+            </h1>
+        </div>
+        {% include 'core/parts/pagenation_button.html' with pg_class='justify-content-center' %}
+        {% for nyaaan in nyaaans %}
+        <div class="mb-2">
+            {% include "core/parts/card.html" with headless=True %}
+        </div>
+        {% empty %}
+        <p class="text-center text-muted">つぶやきはありません</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
+
+{% block script %}
+{% include 'core/parts/nyaaan.html' %}
+{% endblock %}

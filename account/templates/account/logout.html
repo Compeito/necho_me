@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}ログアウト{% endblock %}
+{% block description %}{% endblock %}
+{% block og_title %}{% endblock %}
+{% block og_description %}{% endblock %}
+{% block og_image %}{% endblock %}
+{% block head %}{% endblock %}
+
+{% block content %}
+<div class="p-3">
+    <p>ログアウトしました</p>
+</div>
+{% endblock %}
+
+{% block script %}
+<script type="text/javascript">
+    setTimeout(function() {
+        location.href = '/'
+    }, 2000)
+</script>
+{% endblock %}

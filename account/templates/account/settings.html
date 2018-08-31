@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}ユーザー設定{% endblock %}
+{% block description %}{% endblock %}
+{% block og_title %}ユーザー設定{% endblock %}
+{% block og_description %}{% endblock %}
+{% block og_image %}{% endblock %}
+{% block head %}{% endblock %}
+
+{% block content %}
+{% if change_success %}
+<div class="alert alert-dismissible alert-success">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <strong>設定を保存しました </strong>
+</div>
+{% endif %}
+
+<div class="container px-1">
+    <div class="jumbotron">
+        <h1>ユーザー設定</h1>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {% load bootstrap4 %}
+            {% bootstrap_form form %}
+            <button type="submit" class="btn btn-primary">送信</button>
+        </form>
+        <hr>
+        <a class="btn btn-danger my-2" href="/account/logout/">ログアウト</a>
+    </div>
+</div>
+{% endblock %}
+
+{% block script %}{% endblock %}

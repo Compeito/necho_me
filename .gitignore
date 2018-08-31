@@ -1,0 +1,17 @@
+.idea
+.vscode
+__pycache__/
+
+/media/temp/*
+!.gitkeep
+
+/mysite/static/*
+!.gitkeep
+
+local_settings.py
+
+Thumbs.db
+*.exe
+*.bat
+*.sqlite3
+*.bak

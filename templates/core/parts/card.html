@@ -1,0 +1,49 @@
+<div class="card" id="{{ nyaaan.slug }}">
+    <div class="card-body">
+        {% if not headless %}
+        <h4 class="card-title">
+            <img src="{{ nyaaan.user.json.profile_image_url_https }}">
+            {{ nyaaan.user.get_full_name }}
+            <small>
+                <a href="/u/{{ nyaaan.user.username }}">@{{ nyaaan.user.username }}</a>
+            </small>
+        </h4>
+        {% endif %}
+        <p class="card-text">
+            <span class="nyaaan_{{ nyaaan.slug }}">{{ nyaaan.echo }}</span>
+            <span class="text_{{ nyaaan.slug }}" style="display: none;">{{ nyaaan.text|linebreaksbr }}</span>
+            {% load coretag %}
+        </p>
+        <div class="text-right">
+            <p class="text-small card-text">{{ nyaaan.created_at|dt2str }}</p>
+            <button class="btn btn-sm btn-primary translate-button" data-nyaaan-id="{{ nyaaan.slug }}">翻訳する</button>
+            {% ifequal nyaaan.user request.user %}
+            {% if account %}
+            <button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#modal_{{ nyaaan.slug }}">削除する</button>
+            {% endif %}
+            {% endifequal %}
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="modal_{{ nyaaan.slug }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">この投稿を削除しますか？</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                注意1：連携ツイートはこの操作では削除されません<br>
+                注意2：削除した投稿は元には戻せません
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">キャンセル</button>
+                <button type="button" class="btn btn-danger delete-button" data-nyaaan-id="{{ nyaaan.slug }}" data-dismiss="modal">削除する</button>
+            </div>
+        </div>
+    </div>
+</div>
